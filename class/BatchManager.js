@@ -12,6 +12,13 @@ module.exports.BatchMessageSender = class BatchMessageSender {
             const message = this.messages.shift();
             let buffer
             try {
+                /**
+                 * @TODO
+                 * If this method is really better than a 
+                 * callback, client must be wrapped and 
+                 * process of drain event as a promise
+                 * resolution.
+                 */
                 buffer = !client.send(topic, message);
             } catch (error) {
                 return Promise.reject(error)
