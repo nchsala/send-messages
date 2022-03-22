@@ -14,9 +14,9 @@ module.exports.BatchMessageSender = class BatchMessageSender {
             try {
                 /**
                  * @TODO
-                 * If this method is really better than a 
+                 * If this resolution is really better than a 
                  * callback, client must be wrapped and 
-                 * process of drain event as a promise
+                 * the drain event must be resolve as a promise
                  * resolution.
                  */
                 buffer = !client.send(topic, message);
