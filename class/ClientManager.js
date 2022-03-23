@@ -3,7 +3,7 @@ const mqlight = require("mqlight")
 
 module.exports.ClientManager = class ClientManager {
 
-    static fromMqLight(options) {
+    static create(options) {
         const createClient = promisify(mqlight.createClient);
         const pendingClientConection = createClient(options);
         return new ClientManager(pendingClientConection);
@@ -11,6 +11,11 @@ module.exports.ClientManager = class ClientManager {
 
     constructor(pendingClientConnection) {
         this.pendingClientConnection = pendingClientConnection;
+    }
+
+    async send(message) {
+        const client = await this.getClient();
+        return await client.send(message);
     }
 
     async getClient() {
