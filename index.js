@@ -1,12 +1,13 @@
 const { BatchMessageSender } = require("./class/BatchMessageSender");
 const { ClientManager } = require("./class/ClientManager");
 const { MqLightWrapper } = require("./class/MqLightClient");
+
 const promisify = require('util').promisify;
 const mqlight = require("mqlight");
-const clientManager = ClientManager.createFrom(
-    async () => promisify(mqlight.createClient)({
-        service: "amqp://localhost"
-    })
+const createClient = promisify(mqlight.createClient);
+
+const clientManager = ClientManager.createFrom( 
+    async () => createClient({service: "amqp://localhost"}), 
 );
 
 (async function () {
